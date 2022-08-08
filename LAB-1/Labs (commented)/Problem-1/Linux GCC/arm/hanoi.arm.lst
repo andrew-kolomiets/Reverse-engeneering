@@ -1,0 +1,188 @@
+  	****************************************************************************************   
+  	;тут відбувається оголошення бібліотек та зовнішніх функцій також оголошуються змінні та просто іменування вводяться для майбутніх змінних також строки є оголошені   
+  	      		
+   1				.arch armv5t
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 2
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"hanoi.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata
+  16              		.align	2
+  17              	.LC0:
+  18 0000 4D6F7665 		.ascii	"Move disk 1 from %c to %c \012\000"
+  18      20646973 
+  18      6B203120 
+  18      66726F6D 
+  18      20256320 
+  19              		.align	2
+  20              	.LC1:
+  21 001c 4D6F7665 		.ascii	"Move disk %d from %c to %c \012\000"
+  21      20646973 
+  21      6B202564 
+  21      2066726F 
+  21      6D202563 
+  
+  	;****************************************************************************************
+ 	
+ 	;початок реалізції функції hanoi() 
+  22              		.text
+  23              		.align	2
+  24              		.global	hanoi
+  25              		.syntax unified
+  26              		.arm
+  27              		.fpu softvfp
+  29              	hanoi:
+  30              	.LFB0:
+  31              		.file 1 "hanoi.c"
+   1:hanoi.c       **** 	
+   2:hanoi.c       **** # include <stdio.h>
+   3:hanoi.c       **** 
+   4:hanoi.c       **** void hanoi(int n,char from,char to,char aux)
+   5:hanoi.c       **** {
+  32              		.loc 1 5 1			;пролог функції
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 8
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 00482DE9 		push	{fp, lr}
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 11, -8
+  39              		.cfi_offset 14, -4
+  40 0004 04B08DE2 		add	fp, sp, #4
+  41              		.cfi_def_cfa 11, 4
+  42 0008 08D04DE2 		sub	sp, sp, #8
+  43 000c 08000BE5 		str	r0, [fp, #-8]
+  44 0010 0100A0E1 		mov	r0, r1
+  45 0014 0210A0E1 		mov	r1, r2			;потрібно видобути значення переданих в регістри про виконанні функції main()
+  46 0018 0320A0E1 		mov	r2, r3
+  47 001c 0030A0E1 		mov	r3, r0
+  48 0020 09304BE5 		strb	r3, [fp, #-9]
+  49 0024 0130A0E1 		mov	r3, r1
+  50 0028 0A304BE5 		strb	r3, [fp, #-10]
+  51 002c 0230A0E1 		mov	r3, r2
+  52 0030 0B304BE5 		strb	r3, [fp, #-11]
+   6:hanoi.c       **** 	if (n==1)
+  53              		.loc 1 6 5
+  54 0034 08301BE5 		ldr	r3, [fp, #-8]
+  55 0038 010053E3 		cmp	r3, #1			; n порівнюється з 1
+  56 003c 0500001A 		bne	.L2			; якщо не виконується умова нас кидає в .L2
+  								; якщо все пройшло успішно, ми заходимо в блок if, і виконуємо наступні інструкції
+   7:hanoi.c       **** 	{
+   8:hanoi.c       **** 		printf("Move disk 1 from %c to %c \n" ,from,to);
+  57              		.loc 1 8 3
+  58 0040 09305BE5 		ldrb	r3, [fp, #-9]	@ zero_extendqisi2
+  59 0044 0A205BE5 		ldrb	r2, [fp, #-10]	@ zero_extendqisi2
+  60 0048 0310A0E1 		mov	r1, r3						; передача параметрів до регістрів для функції printf()
+  61 004c 54009FE5 		ldr	r0, .L5
+  62 0050 FEFFFFEB 		bl	printf						;виклик функції printf()
+   9:hanoi.c       **** 	}
+  10:hanoi.c       **** 	else 
+  11:hanoi.c       **** 	{
+  12:hanoi.c       **** 		hanoi(n-1,from,aux,to);
+  13:hanoi.c       **** 		printf ("Move disk %d from %c to %c \n",n,from,to);
+  14:hanoi.c       **** 		hanoi(n-1,aux,to,from);
+  15:hanoi.c       **** 	}
+  16:hanoi.c       **** }
+  63              		.loc 1 16 1
+  64 0054 100000EA 		b	.L4						; маємо перейти в епілог в разі виконання
+  65              	.L2:								;якщо все таки умовна перевірка не пройшла ми переходимо в блок else
+  12:hanoi.c       **** 		printf ("Move disk %d from %c to %c \n",n,from,to);
+  66              		.loc 1 12 3
+  67 0058 08301BE5 		ldr	r3, [fp, #-8]					; передача параметрів до регістрів для функції hanoi()
+  68 005c 010043E2 		sub	r0, r3, #1
+  69 0060 0A305BE5 		ldrb	r3, [fp, #-10]	@ zero_extendqisi2
+  70 0064 0B205BE5 		ldrb	r2, [fp, #-11]	@ zero_extendqisi2
+  71 0068 09105BE5 		ldrb	r1, [fp, #-9]	@ zero_extendqisi2
+  72 006c FEFFFFEB 		bl	hanoi						;виклик функції hanoi()
+  13:hanoi.c       **** 		hanoi(n-1,aux,to,from);
+  73              		.loc 1 13 3
+  74 0070 09205BE5 		ldrb	r2, [fp, #-9]	@ zero_extendqisi2		; передача параметрів до регістрів для функції printf()
+  75 0074 0A305BE5 		ldrb	r3, [fp, #-10]	@ zero_extendqisi2
+  76 0078 08101BE5 		ldr	r1, [fp, #-8]
+  77 007c 28009FE5 		ldr	r0, .L5+4
+  78 0080 FEFFFFEB 		bl	printf						;виклик функції printf()	
+  14:hanoi.c       **** 	}
+  79              		.loc 1 14 3
+  80 0084 08301BE5 		ldr	r3, [fp, #-8]					; передача параметрів до регістрів для функції hanoi()
+  81 0088 010043E2 		sub	r0, r3, #1
+  82 008c 09305BE5 		ldrb	r3, [fp, #-9]	@ zero_extendqisi2
+  83 0090 0A205BE5 		ldrb	r2, [fp, #-10]	@ zero_extendqisi2
+  84 0094 0B105BE5 		ldrb	r1, [fp, #-11]	@ zero_extendqisi2
+  85 0098 FEFFFFEB 		bl	hanoi						;виклик функції hanoi()
+  86              	.L4:
+  87              		.loc 1 16 1
+  88 009c 0000A0E1 		nop
+  89 00a0 04D04BE2 		sub	sp, fp, #4
+  90              		.cfi_def_cfa 13, 8
+  91              		@ sp needed						; епілог фунції
+  92 00a4 0088BDE8 		pop	{fp, pc}					; return  
+  93              	.L6:
+  94              		.align	2
+  95              	.L5:
+  96 00a8 00000000 		.word	.LC0
+  97 00ac 1C000000 		.word	.LC1
+  98              		.cfi_endproc
+  
+	;кінець реалізції функції hanoi() 
+
+
+  	;****************************************************************************************
+ 	;початок реалізції функції main() 
+ 	 
+  99              	.LFE0:
+ 101              		.align	2
+ 102              		.global	main
+ 103              		.syntax unified
+ 104              		.arm
+ 105              		.fpu softvfp
+ 107              	main:
+ 108              	.LFB1:
+  17:hanoi.c       **** 
+  18:hanoi.c       **** int main () 
+  19:hanoi.c       **** {
+ 109              		.loc 1 19 1
+ 110              		.cfi_startproc				;пролог функції на початку
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 1, uses_anonymous_args = 0
+ 113 00b0 00482DE9 		push	{fp, lr}
+ 114              		.cfi_def_cfa_offset 8
+ 115              		.cfi_offset 11, -8
+ 116              		.cfi_offset 14, -4
+ 117 00b4 04B08DE2 		add	fp, sp, #4
+ 118              		.cfi_def_cfa 11, 4
+  20:hanoi.c       ****     hanoi(3,'A','C','B');
+ 119              		.loc 1 20 5
+ 120 00b8 4230A0E3 		mov	r3, #66		;процедура запису параметрів в регістри для hanoi(), чотири інструкції mov переміщують символи в ASCII системі кодування до регістрів
+ 121 00bc 4320A0E3 		mov	r2, #67		;порядок їх передачі в регістри визначається ахітектурою та мовою ассемблера, детальніше див. в документацію
+ 122 00c0 4110A0E3 		mov	r1, #65
+ 123 00c4 0300A0E3 		mov	r0, #3
+ 124 00c8 FEFFFFEB 		bl	hanoi			;виклик функції hanoi()
+ 125 00cc 0030A0E3 		mov	r3, #0
+  21:hanoi.c       **** }
+ 126              		.loc 1 21 1
+ 127 00d0 0300A0E1 		mov	r0, r3			;епілог функції в кінці
+ 128 00d4 0088BDE8 		pop	{fp, pc}		;return
+ 129              		.cfi_endproc
+ 
+ 	;кінець реалізції функції main() 
+
+
+ 	;****************************************************************************************
+ 	;все, що розташоване нижче це підключення стандартних бібліотек, та також інших файлів
+
+ 130              	.LFE1:
+ 132              	.Letext0:
+ 133              		.file 2 "/usr/lib/gcc-cross/arm-linux-gnueabi/9/include/stddef.h"
+ 134              		.file 3 "/usr/arm-linux-gnueabi/include/bits/types.h"
+ 135              		.file 4 "/usr/arm-linux-gnueabi/include/bits/types/struct_FILE.h"
+ 136              		.file 5 "/usr/arm-linux-gnueabi/include/bits/types/FILE.h"
+ 137              		.file 6 "/usr/arm-linux-gnueabi/include/stdio.h"
+ 138              		.file 7 "/usr/arm-linux-gnueabi/include/bits/sys_errlist.h"

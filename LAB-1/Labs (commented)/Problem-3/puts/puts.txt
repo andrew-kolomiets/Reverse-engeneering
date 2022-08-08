@@ -1,0 +1,89 @@
+
+puts.lo:     file format elf64-x86-64
+
+
+Disassembly of section .text.puts:
+
+0000000000000000 <puts>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 fd             	mov    %rdi,%rbp
+   8:	53                   	push   %rbx
+   9:	31 db                	xor    %ebx,%ebx
+   b:	48 83 ec 18          	sub    $0x18,%rsp
+   f:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 15 <puts+0x15>
+  15:	85 c0                	test   %eax,%eax
+  17:	78 0e                	js     27 <puts+0x27>
+  19:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 20 <puts+0x20>
+  20:	e8 00 00 00 00       	callq  25 <puts+0x25>
+  25:	89 c3                	mov    %eax,%ebx
+  27:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 2e <puts+0x2e>
+  2e:	48 89 ef             	mov    %rbp,%rdi
+  31:	e8 00 00 00 00       	callq  36 <puts+0x36>
+  36:	41 89 c0             	mov    %eax,%r8d
+  39:	b8 01 00 00 00       	mov    $0x1,%eax
+  3e:	45 85 c0             	test   %r8d,%r8d
+  41:	78 3f                	js     82 <puts+0x82>
+  43:	83 3d 00 00 00 00 0a 	cmpl   $0xa,0x0(%rip)        # 4a <puts+0x4a>
+  4a:	74 22                	je     6e <puts+0x6e>
+  4c:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 53 <puts+0x53>
+  53:	48 3b 05 00 00 00 00 	cmp    0x0(%rip),%rax        # 5a <puts+0x5a>
+  5a:	74 12                	je     6e <puts+0x6e>
+  5c:	48 8d 50 01          	lea    0x1(%rax),%rdx
+  60:	48 89 15 00 00 00 00 	mov    %rdx,0x0(%rip)        # 67 <puts+0x67>
+  67:	c6 00 0a             	movb   $0xa,(%rax)
+  6a:	31 c0                	xor    %eax,%eax
+  6c:	eb 14                	jmp    82 <puts+0x82>
+  6e:	be 0a 00 00 00       	mov    $0xa,%esi
+  73:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 7a <puts+0x7a>
+  7a:	e8 00 00 00 00       	callq  7f <puts+0x7f>
+  7f:	c1 e8 1f             	shr    $0x1f,%eax
+  82:	f7 d8                	neg    %eax
+  84:	85 db                	test   %ebx,%ebx
+  86:	74 14                	je     9c <puts+0x9c>
+  88:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 8f <puts+0x8f>
+  8f:	89 44 24 0c          	mov    %eax,0xc(%rsp)
+  93:	e8 00 00 00 00       	callq  98 <puts+0x98>
+  98:	8b 44 24 0c          	mov    0xc(%rsp),%eax
+  9c:	48 83 c4 18          	add    $0x18,%rsp
+  a0:	5b                   	pop    %rbx
+  a1:	5d                   	pop    %rbp
+  a2:	c3                   	retq   
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <puts+0x79>
+   b:	74 75                	je     82 <puts+0x82>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  12:	30 2d 31 37 75 62    	xor    %ch,0x62753731(%rip)        # 62753749 <puts+0x62753749>
+  18:	75 6e                	jne    88 <puts+0x88>
+  1a:	74 75                	je     91 <puts+0x91>
+  1c:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1f:	30 2e                	xor    %ch,(%rsi)
+  21:	30 34 29             	xor    %dh,(%rcx,%rbp,1)
+  24:	20 39                	and    %bh,(%rcx)
+  26:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  29:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...

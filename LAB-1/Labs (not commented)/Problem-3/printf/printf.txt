@@ -1,0 +1,83 @@
+
+printf.lo:     file format elf64-x86-64
+
+
+Disassembly of section .text.printf:
+
+0000000000000000 <printf>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	48 81 ec d8 00 00 00 	sub    $0xd8,%rsp
+   b:	49 89 fa             	mov    %rdi,%r10
+   e:	48 89 74 24 28       	mov    %rsi,0x28(%rsp)
+  13:	48 89 54 24 30       	mov    %rdx,0x30(%rsp)
+  18:	48 89 4c 24 38       	mov    %rcx,0x38(%rsp)
+  1d:	4c 89 44 24 40       	mov    %r8,0x40(%rsp)
+  22:	4c 89 4c 24 48       	mov    %r9,0x48(%rsp)
+  27:	84 c0                	test   %al,%al
+  29:	74 37                	je     62 <printf+0x62>
+  2b:	0f 29 44 24 50       	movaps %xmm0,0x50(%rsp)
+  30:	0f 29 4c 24 60       	movaps %xmm1,0x60(%rsp)
+  35:	0f 29 54 24 70       	movaps %xmm2,0x70(%rsp)
+  3a:	0f 29 9c 24 80 00 00 	movaps %xmm3,0x80(%rsp)
+  41:	00 
+  42:	0f 29 a4 24 90 00 00 	movaps %xmm4,0x90(%rsp)
+  49:	00 
+  4a:	0f 29 ac 24 a0 00 00 	movaps %xmm5,0xa0(%rsp)
+  51:	00 
+  52:	0f 29 b4 24 b0 00 00 	movaps %xmm6,0xb0(%rsp)
+  59:	00 
+  5a:	0f 29 bc 24 c0 00 00 	movaps %xmm7,0xc0(%rsp)
+  61:	00 
+  62:	48 8d 84 24 e0 00 00 	lea    0xe0(%rsp),%rax
+  69:	00 
+  6a:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx
+  6f:	4c 89 d6             	mov    %r10,%rsi
+  72:	c7 44 24 08 08 00 00 	movl   $0x8,0x8(%rsp)
+  79:	00 
+  7a:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  7f:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 86 <printf+0x86>
+  86:	48 8d 44 24 20       	lea    0x20(%rsp),%rax
+  8b:	c7 44 24 0c 30 00 00 	movl   $0x30,0xc(%rsp)
+  92:	00 
+  93:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  98:	e8 00 00 00 00       	callq  9d <printf+0x9d>
+  9d:	48 81 c4 d8 00 00 00 	add    $0xd8,%rsp
+  a4:	c3                   	retq   
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <printf+0x79>
+   b:	74 75                	je     82 <printf+0x82>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  12:	30 2d 31 37 75 62    	xor    %ch,0x62753731(%rip)        # 62753749 <printf+0x62753749>
+  18:	75 6e                	jne    88 <printf+0x88>
+  1a:	74 75                	je     91 <printf+0x91>
+  1c:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1f:	30 2e                	xor    %ch,(%rsi)
+  21:	30 34 29             	xor    %dh,(%rcx,%rbp,1)
+  24:	20 39                	and    %bh,(%rcx)
+  26:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  29:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...

@@ -1,0 +1,109 @@
+
+fopen.lo:     file format elf64-x86-64
+
+
+Disassembly of section .rodata.fopen.str1.1:
+
+0000000000000000 <.LC0>:
+   0:	72 77                	jb     79 <.LC0+0x79>
+   2:	61                   	(bad)  
+	...
+
+Disassembly of section .text.fopen:
+
+0000000000000000 <fopen>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	41 56                	push   %r14
+   6:	41 55                	push   %r13
+   8:	41 54                	push   %r12
+   a:	55                   	push   %rbp
+   b:	48 89 f5             	mov    %rsi,%rbp
+   e:	53                   	push   %rbx
+   f:	0f be 36             	movsbl (%rsi),%esi
+  12:	48 89 fb             	mov    %rdi,%rbx
+  15:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1c <fopen+0x1c>
+  1c:	e8 00 00 00 00       	callq  21 <fopen+0x21>
+  21:	48 85 c0             	test   %rax,%rax
+  24:	75 10                	jne    36 <fopen+0x36>
+  26:	49 89 c4             	mov    %rax,%r12
+  29:	e8 00 00 00 00       	callq  2e <fopen+0x2e>
+  2e:	c7 00 16 00 00 00    	movl   $0x16,(%rax)
+  34:	eb 70                	jmp    a6 <fopen+0xa6>
+  36:	48 89 ef             	mov    %rbp,%rdi
+  39:	41 be 02 00 00 00    	mov    $0x2,%r14d
+  3f:	e8 00 00 00 00       	callq  44 <fopen+0x44>
+  44:	ba b6 01 00 00       	mov    $0x1b6,%edx
+  49:	89 c7                	mov    %eax,%edi
+  4b:	41 89 c5             	mov    %eax,%r13d
+  4e:	4c 89 f0             	mov    %r14,%rax
+  51:	81 cf 00 80 00 00    	or     $0x8000,%edi
+  57:	48 63 f7             	movslq %edi,%rsi
+  5a:	48 89 df             	mov    %rbx,%rdi
+  5d:	0f 05                	syscall 
+  5f:	48 89 c7             	mov    %rax,%rdi
+  62:	45 31 e4             	xor    %r12d,%r12d
+  65:	e8 00 00 00 00       	callq  6a <fopen+0x6a>
+  6a:	48 89 c3             	mov    %rax,%rbx
+  6d:	85 c0                	test   %eax,%eax
+  6f:	78 35                	js     a6 <fopen+0xa6>
+  71:	41 0f ba e5 13       	bt     $0x13,%r13d
+  76:	73 12                	jae    8a <fopen+0x8a>
+  78:	48 63 f8             	movslq %eax,%rdi
+  7b:	ba 01 00 00 00       	mov    $0x1,%edx
+  80:	b8 48 00 00 00       	mov    $0x48,%eax
+  85:	4c 89 f6             	mov    %r14,%rsi
+  88:	0f 05                	syscall 
+  8a:	48 89 ee             	mov    %rbp,%rsi
+  8d:	89 df                	mov    %ebx,%edi
+  8f:	e8 00 00 00 00       	callq  94 <fopen+0x94>
+  94:	49 89 c4             	mov    %rax,%r12
+  97:	48 85 c0             	test   %rax,%rax
+  9a:	75 0a                	jne    a6 <fopen+0xa6>
+  9c:	48 63 fb             	movslq %ebx,%rdi
+  9f:	b8 03 00 00 00       	mov    $0x3,%eax
+  a4:	0f 05                	syscall 
+  a6:	5b                   	pop    %rbx
+  a7:	4c 89 e0             	mov    %r12,%rax
+  aa:	5d                   	pop    %rbp
+  ab:	41 5c                	pop    %r12
+  ad:	41 5d                	pop    %r13
+  af:	41 5e                	pop    %r14
+  b1:	c3                   	retq   
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <fopen+0x79>
+   b:	74 75                	je     82 <fopen+0x82>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  12:	30 2d 31 37 75 62    	xor    %ch,0x62753731(%rip)        # 62753749 <fopen+0x62753749>
+  18:	75 6e                	jne    88 <fopen+0x88>
+  1a:	74 75                	je     91 <fopen+0x91>
+  1c:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1f:	30 2e                	xor    %ch,(%rsi)
+  21:	30 34 29             	xor    %dh,(%rcx,%rbp,1)
+  24:	20 39                	and    %bh,(%rcx)
+  26:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  29:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...

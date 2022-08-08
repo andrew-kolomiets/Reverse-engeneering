@@ -1,0 +1,667 @@
+   1              		.arch armv5t
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 2
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"Dijkstra.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	2
+  16              		.global	minDistance
+  17              		.syntax unified
+  18              		.arm
+  19              		.fpu softvfp
+  21              	minDistance:
+  22              	.LFB6:
+  23              		.file 1 "Dijkstra.c"
+   1:Dijkstra.c    **** // A C++ program for Dijkstra's single source shortest path algorithm.
+   2:Dijkstra.c    **** // The program is for adjacency matrix representation of the graph
+   3:Dijkstra.c    **** 
+   4:Dijkstra.c    **** #include <limits.h>
+   5:Dijkstra.c    **** #include <stdlib.h>
+   6:Dijkstra.c    **** #include <stdbool.h>
+   7:Dijkstra.c    **** #include <stdio.h>
+   8:Dijkstra.c    **** 
+   9:Dijkstra.c    **** // Number of vertices in the graph
+  10:Dijkstra.c    **** #define V 9
+  11:Dijkstra.c    **** 
+  12:Dijkstra.c    **** // A utility function to find the vertex with minimum distance value, from
+  13:Dijkstra.c    **** // the set of vertices not yet included in shortest path tree
+  14:Dijkstra.c    **** int minDistance(int dist[],bool sptSet[])
+  15:Dijkstra.c    **** {
+  24              		.loc 1 15 1
+  25              		.cfi_startproc
+  26              		@ args = 0, pretend = 0, frame = 24
+  27              		@ frame_needed = 1, uses_anonymous_args = 0
+  28              		@ link register save eliminated.
+  29 0000 04B02DE5 		str	fp, [sp, #-4]!
+  30              		.cfi_def_cfa_offset 4
+  31              		.cfi_offset 11, -4
+  32 0004 00B08DE2 		add	fp, sp, #0
+  33              		.cfi_def_cfa_register 11
+  34 0008 1CD04DE2 		sub	sp, sp, #28
+  35 000c 18000BE5 		str	r0, [fp, #-24]
+  36 0010 1C100BE5 		str	r1, [fp, #-28]
+  16:Dijkstra.c    **** 	// Initialize min value
+  17:Dijkstra.c    **** 	int min = INT_MAX, min_index;
+  37              		.loc 1 17 6
+  38 0014 0231E0E3 		mvn	r3, #-2147483648
+  39 0018 10300BE5 		str	r3, [fp, #-16]
+  40              	.LBB2:
+  18:Dijkstra.c    **** 
+  19:Dijkstra.c    **** 	for (int v = 0; v < V; v++)
+  41              		.loc 1 19 11
+  42 001c 0030A0E3 		mov	r3, #0
+  43 0020 08300BE5 		str	r3, [fp, #-8]
+  44              		.loc 1 19 2
+  45 0024 1A0000EA 		b	.L2
+  46              	.L4:
+  20:Dijkstra.c    **** 		if (sptSet[v] == false && dist[v] <= min)
+  47              		.loc 1 20 13
+  48 0028 08301BE5 		ldr	r3, [fp, #-8]
+  49 002c 1C201BE5 		ldr	r2, [fp, #-28]
+  50 0030 033082E0 		add	r3, r2, r3
+  51 0034 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+  52              		.loc 1 20 17
+  53 0038 013023E2 		eor	r3, r3, #1
+  54 003c FF3003E2 		and	r3, r3, #255
+  55              		.loc 1 20 6
+  56 0040 000053E3 		cmp	r3, #0
+  57 0044 0F00000A 		beq	.L3
+  58              		.loc 1 20 33 discriminator 1
+  59 0048 08301BE5 		ldr	r3, [fp, #-8]
+  60 004c 0331A0E1 		lsl	r3, r3, #2
+  61 0050 18201BE5 		ldr	r2, [fp, #-24]
+  62 0054 033082E0 		add	r3, r2, r3
+  63 0058 003093E5 		ldr	r3, [r3]
+  64              		.loc 1 20 26 discriminator 1
+  65 005c 10201BE5 		ldr	r2, [fp, #-16]
+  66 0060 030052E1 		cmp	r2, r3
+  67 0064 070000BA 		blt	.L3
+  21:Dijkstra.c    **** 			min = dist[v], min_index = v;
+  68              		.loc 1 21 14
+  69 0068 08301BE5 		ldr	r3, [fp, #-8]
+  70 006c 0331A0E1 		lsl	r3, r3, #2
+  71 0070 18201BE5 		ldr	r2, [fp, #-24]
+  72 0074 033082E0 		add	r3, r2, r3
+  73              		.loc 1 21 8
+  74 0078 003093E5 		ldr	r3, [r3]
+  75 007c 10300BE5 		str	r3, [fp, #-16]
+  76              		.loc 1 21 29
+  77 0080 08301BE5 		ldr	r3, [fp, #-8]
+  78 0084 0C300BE5 		str	r3, [fp, #-12]
+  79              	.L3:
+  19:Dijkstra.c    **** 		if (sptSet[v] == false && dist[v] <= min)
+  80              		.loc 1 19 26 discriminator 2
+  81 0088 08301BE5 		ldr	r3, [fp, #-8]
+  82 008c 013083E2 		add	r3, r3, #1
+  83 0090 08300BE5 		str	r3, [fp, #-8]
+  84              	.L2:
+  19:Dijkstra.c    **** 		if (sptSet[v] == false && dist[v] <= min)
+  85              		.loc 1 19 2 discriminator 1
+  86 0094 08301BE5 		ldr	r3, [fp, #-8]
+  87 0098 080053E3 		cmp	r3, #8
+  88 009c E1FFFFDA 		ble	.L4
+  89              	.LBE2:
+  22:Dijkstra.c    **** 
+  23:Dijkstra.c    **** 	return min_index;
+  90              		.loc 1 23 9
+  91 00a0 0C301BE5 		ldr	r3, [fp, #-12]
+  24:Dijkstra.c    **** }
+  92              		.loc 1 24 1
+  93 00a4 0300A0E1 		mov	r0, r3
+  94 00a8 00D08BE2 		add	sp, fp, #0
+  95              		.cfi_def_cfa_register 13
+  96              		@ sp needed
+  97 00ac 04B09DE4 		ldr	fp, [sp], #4
+  98              		.cfi_restore 11
+  99              		.cfi_def_cfa_offset 0
+ 100 00b0 1EFF2FE1 		bx	lr
+ 101              		.cfi_endproc
+ 102              	.LFE6:
+ 104              		.section	.rodata
+ 105              		.align	2
+ 106              	.LC1:
+ 107 0000 56657274 		.ascii	"Vertex Distance from Source\000"
+ 107      65782044 
+ 107      69737461 
+ 107      6E636520 
+ 107      66726F6D 
+ 108              		.align	2
+ 109              	.LC2:
+ 110 001c 25642009 		.ascii	"%d \011\011 %d\012\000"
+ 110      09202564 
+ 110      0A00
+ 111              		.text
+ 112              		.align	2
+ 113              		.global	printSolution
+ 114              		.syntax unified
+ 115              		.arm
+ 116              		.fpu softvfp
+ 118              	printSolution:
+ 119              	.LFB7:
+  25:Dijkstra.c    **** 
+  26:Dijkstra.c    **** // A utility function to print the constructed distance array
+  27:Dijkstra.c    **** int printSolution(int dist[], int n)
+  28:Dijkstra.c    **** {
+ 120              		.loc 1 28 1
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 16
+ 123              		@ frame_needed = 1, uses_anonymous_args = 0
+ 124 00b4 00482DE9 		push	{fp, lr}
+ 125              		.cfi_def_cfa_offset 8
+ 126              		.cfi_offset 11, -8
+ 127              		.cfi_offset 14, -4
+ 128 00b8 04B08DE2 		add	fp, sp, #4
+ 129              		.cfi_def_cfa 11, 4
+ 130 00bc 10D04DE2 		sub	sp, sp, #16
+ 131 00c0 10000BE5 		str	r0, [fp, #-16]
+ 132 00c4 14100BE5 		str	r1, [fp, #-20]
+  29:Dijkstra.c    **** 	printf("Vertex Distance from Source\n");
+ 133              		.loc 1 29 2
+ 134 00c8 58009FE5 		ldr	r0, .L9
+ 135 00cc FEFFFFEB 		bl	puts
+ 136              	.LBB3:
+  30:Dijkstra.c    **** 	for (int i = 0; i < V; i++)
+ 137              		.loc 1 30 11
+ 138 00d0 0030A0E3 		mov	r3, #0
+ 139 00d4 08300BE5 		str	r3, [fp, #-8]
+ 140              		.loc 1 30 2
+ 141 00d8 0B0000EA 		b	.L7
+ 142              	.L8:
+  31:Dijkstra.c    **** 		printf("%d \t\t %d\n", i, dist[i]);
+ 143              		.loc 1 31 33 discriminator 3
+ 144 00dc 08301BE5 		ldr	r3, [fp, #-8]
+ 145 00e0 0331A0E1 		lsl	r3, r3, #2
+ 146 00e4 10201BE5 		ldr	r2, [fp, #-16]
+ 147 00e8 033082E0 		add	r3, r2, r3
+ 148              		.loc 1 31 3 discriminator 3
+ 149 00ec 003093E5 		ldr	r3, [r3]
+ 150 00f0 0320A0E1 		mov	r2, r3
+ 151 00f4 08101BE5 		ldr	r1, [fp, #-8]
+ 152 00f8 2C009FE5 		ldr	r0, .L9+4
+ 153 00fc FEFFFFEB 		bl	printf
+  30:Dijkstra.c    **** 	for (int i = 0; i < V; i++)
+ 154              		.loc 1 30 26 discriminator 3
+ 155 0100 08301BE5 		ldr	r3, [fp, #-8]
+ 156 0104 013083E2 		add	r3, r3, #1
+ 157 0108 08300BE5 		str	r3, [fp, #-8]
+ 158              	.L7:
+  30:Dijkstra.c    **** 	for (int i = 0; i < V; i++)
+ 159              		.loc 1 30 2 discriminator 1
+ 160 010c 08301BE5 		ldr	r3, [fp, #-8]
+ 161 0110 080053E3 		cmp	r3, #8
+ 162 0114 F0FFFFDA 		ble	.L8
+ 163              	.LBE3:
+  32:Dijkstra.c    **** }
+ 164              		.loc 1 32 1
+ 165 0118 0000A0E1 		nop
+ 166 011c 0300A0E1 		mov	r0, r3
+ 167 0120 04D04BE2 		sub	sp, fp, #4
+ 168              		.cfi_def_cfa 13, 8
+ 169              		@ sp needed
+ 170 0124 0088BDE8 		pop	{fp, pc}
+ 171              	.L10:
+ 172              		.align	2
+ 173              	.L9:
+ 174 0128 00000000 		.word	.LC1
+ 175 012c 1C000000 		.word	.LC2
+ 176              		.cfi_endproc
+ 177              	.LFE7:
+ 179              		.section	.rodata
+ 180 0026 0000     		.align	2
+ 181              	.LC3:
+ 182 0028 00000000 		.word	__stack_chk_guard
+ 183              		.text
+ 184              		.align	2
+ 185              		.global	dijkstra
+ 186              		.syntax unified
+ 187              		.arm
+ 188              		.fpu softvfp
+ 190              	dijkstra:
+ 191              	.LFB8:
+  33:Dijkstra.c    **** 
+  34:Dijkstra.c    **** // Function that implements Dijkstra's single source shortest path algorithm
+  35:Dijkstra.c    **** // for a graph represented using adjacency matrix representation
+  36:Dijkstra.c    **** void dijkstra(int graph[V][V], int src)
+  37:Dijkstra.c    **** {
+ 192              		.loc 1 37 1
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 80
+ 195              		@ frame_needed = 1, uses_anonymous_args = 0
+ 196 0130 00482DE9 		push	{fp, lr}
+ 197              		.cfi_def_cfa_offset 8
+ 198              		.cfi_offset 11, -8
+ 199              		.cfi_offset 14, -4
+ 200 0134 04B08DE2 		add	fp, sp, #4
+ 201              		.cfi_def_cfa 11, 4
+ 202 0138 50D04DE2 		sub	sp, sp, #80
+ 203 013c 50000BE5 		str	r0, [fp, #-80]
+ 204 0140 54100BE5 		str	r1, [fp, #-84]
+ 205              		.loc 1 37 1
+ 206 0144 38329FE5 		ldr	r3, .L20
+ 207 0148 003093E5 		ldr	r3, [r3]
+ 208 014c 08300BE5 		str	r3, [fp, #-8]
+ 209 0150 0030A0E3 		mov	r3,#0
+ 210              	.LBB4:
+  38:Dijkstra.c    **** 	int dist[V]; // The output array. dist[i] will hold the shortest
+  39:Dijkstra.c    **** 	// distance from src to i
+  40:Dijkstra.c    **** 
+  41:Dijkstra.c    **** 	bool sptSet[V]; // sptSet[i] will be true if vertex i is included in shortest
+  42:Dijkstra.c    **** 	// path tree or shortest distance from src to i is finalized
+  43:Dijkstra.c    **** 
+  44:Dijkstra.c    **** 	// Initialize all distances as INFINITE and stpSet[] as false
+  45:Dijkstra.c    **** 	for (int i = 0; i < V; i++)
+ 211              		.loc 1 45 11
+ 212 0154 0030A0E3 		mov	r3, #0
+ 213 0158 48300BE5 		str	r3, [fp, #-72]
+ 214              		.loc 1 45 2
+ 215 015c 0D0000EA 		b	.L12
+ 216              	.L13:
+  46:Dijkstra.c    **** 		dist[i] = INT_MAX, sptSet[i] =0;
+ 217              		.loc 1 46 11 discriminator 3
+ 218 0160 48301BE5 		ldr	r3, [fp, #-72]
+ 219 0164 0331A0E1 		lsl	r3, r3, #2
+ 220 0168 04204BE2 		sub	r2, fp, #4
+ 221 016c 033082E0 		add	r3, r2, r3
+ 222 0170 0221E0E3 		mvn	r2, #-2147483648
+ 223 0174 282003E5 		str	r2, [r3, #-40]
+ 224              		.loc 1 46 32 discriminator 3
+ 225 0178 38204BE2 		sub	r2, fp, #56
+ 226 017c 48301BE5 		ldr	r3, [fp, #-72]
+ 227 0180 033082E0 		add	r3, r2, r3
+ 228 0184 0020A0E3 		mov	r2, #0
+ 229 0188 0020C3E5 		strb	r2, [r3]
+  45:Dijkstra.c    **** 		dist[i] = INT_MAX, sptSet[i] =0;
+ 230              		.loc 1 45 26 discriminator 3
+ 231 018c 48301BE5 		ldr	r3, [fp, #-72]
+ 232 0190 013083E2 		add	r3, r3, #1
+ 233 0194 48300BE5 		str	r3, [fp, #-72]
+ 234              	.L12:
+  45:Dijkstra.c    **** 		dist[i] = INT_MAX, sptSet[i] =0;
+ 235              		.loc 1 45 2 discriminator 1
+ 236 0198 48301BE5 		ldr	r3, [fp, #-72]
+ 237 019c 080053E3 		cmp	r3, #8
+ 238 01a0 EEFFFFDA 		ble	.L13
+ 239              	.LBE4:
+  47:Dijkstra.c    **** 
+  48:Dijkstra.c    **** 	// Distance of source vertex from itself is always 0
+  49:Dijkstra.c    **** 	dist[src] = 0;
+ 240              		.loc 1 49 12
+ 241 01a4 54301BE5 		ldr	r3, [fp, #-84]
+ 242 01a8 0331A0E1 		lsl	r3, r3, #2
+ 243 01ac 04204BE2 		sub	r2, fp, #4
+ 244 01b0 033082E0 		add	r3, r2, r3
+ 245 01b4 0020A0E3 		mov	r2, #0
+ 246 01b8 282003E5 		str	r2, [r3, #-40]
+ 247              	.LBB5:
+  50:Dijkstra.c    **** 
+  51:Dijkstra.c    **** 	// Find shortest path for all vertices
+  52:Dijkstra.c    **** 	for (int count = 0; count < V - 1; count++) {
+ 248              		.loc 1 52 11
+ 249 01bc 0030A0E3 		mov	r3, #0
+ 250 01c0 44300BE5 		str	r3, [fp, #-68]
+ 251              		.loc 1 52 2
+ 252 01c4 5D0000EA 		b	.L14
+ 253              	.L18:
+ 254              	.LBB6:
+  53:Dijkstra.c    **** 		// Pick the minimum distance vertex from the set of vertices not
+  54:Dijkstra.c    **** 		// yet processed. u is always equal to src in the first iteration.
+  55:Dijkstra.c    **** 		int u = minDistance(dist, sptSet);
+ 255              		.loc 1 55 11
+ 256 01c8 38204BE2 		sub	r2, fp, #56
+ 257 01cc 2C304BE2 		sub	r3, fp, #44
+ 258 01d0 0210A0E1 		mov	r1, r2
+ 259 01d4 0300A0E1 		mov	r0, r3
+ 260 01d8 FEFFFFEB 		bl	minDistance
+ 261 01dc 3C000BE5 		str	r0, [fp, #-60]
+  56:Dijkstra.c    **** 
+  57:Dijkstra.c    **** 		// Mark the picked vertex as processed
+  58:Dijkstra.c    **** 		sptSet[u] = true;
+ 262              		.loc 1 58 13
+ 263 01e0 38204BE2 		sub	r2, fp, #56
+ 264 01e4 3C301BE5 		ldr	r3, [fp, #-60]
+ 265 01e8 033082E0 		add	r3, r2, r3
+ 266 01ec 0120A0E3 		mov	r2, #1
+ 267 01f0 0020C3E5 		strb	r2, [r3]
+ 268              	.LBB7:
+  59:Dijkstra.c    **** 
+  60:Dijkstra.c    **** 		// Update dist value of the adjacent vertices of the picked vertex.
+  61:Dijkstra.c    **** 		for (int v = 0; v < V; v++)
+ 269              		.loc 1 61 12
+ 270 01f4 0030A0E3 		mov	r3, #0
+ 271 01f8 40300BE5 		str	r3, [fp, #-64]
+ 272              		.loc 1 61 3
+ 273 01fc 490000EA 		b	.L15
+ 274              	.L17:
+  62:Dijkstra.c    **** 
+  63:Dijkstra.c    **** 			// Update dist[v] only if is not in sptSet, there is an edge from
+  64:Dijkstra.c    **** 			// u to v, and total weight of path from src to v through u is
+  65:Dijkstra.c    **** 			// smaller than current value of dist[v]
+  66:Dijkstra.c    **** 			if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX
+ 275              		.loc 1 66 15
+ 276 0200 38204BE2 		sub	r2, fp, #56
+ 277 0204 40301BE5 		ldr	r3, [fp, #-64]
+ 278 0208 033082E0 		add	r3, r2, r3
+ 279 020c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 280              		.loc 1 66 8
+ 281 0210 013023E2 		eor	r3, r3, #1
+ 282 0214 FF3003E2 		and	r3, r3, #255
+ 283              		.loc 1 66 7
+ 284 0218 000053E3 		cmp	r3, #0
+ 285 021c 3E00000A 		beq	.L16
+ 286              		.loc 1 66 27 discriminator 1
+ 287 0220 3C201BE5 		ldr	r2, [fp, #-60]
+ 288 0224 0230A0E1 		mov	r3, r2
+ 289 0228 8331A0E1 		lsl	r3, r3, #3
+ 290 022c 023083E0 		add	r3, r3, r2
+ 291 0230 0331A0E1 		lsl	r3, r3, #2
+ 292 0234 0320A0E1 		mov	r2, r3
+ 293 0238 50301BE5 		ldr	r3, [fp, #-80]
+ 294 023c 023083E0 		add	r3, r3, r2
+ 295              		.loc 1 66 30 discriminator 1
+ 296 0240 40201BE5 		ldr	r2, [fp, #-64]
+ 297 0244 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 298              		.loc 1 66 19 discriminator 1
+ 299 0248 000053E3 		cmp	r3, #0
+ 300 024c 3200000A 		beq	.L16
+ 301              		.loc 1 66 41 discriminator 2
+ 302 0250 3C301BE5 		ldr	r3, [fp, #-60]
+ 303 0254 0331A0E1 		lsl	r3, r3, #2
+ 304 0258 04204BE2 		sub	r2, fp, #4
+ 305 025c 033082E0 		add	r3, r2, r3
+ 306 0260 283013E5 		ldr	r3, [r3, #-40]
+ 307              		.loc 1 66 34 discriminator 2
+ 308 0264 060173E3 		cmn	r3, #-2147483647
+ 309 0268 2B00000A 		beq	.L16
+  67:Dijkstra.c    **** 				&& dist[u] + graph[u][v] < dist[v])
+ 310              		.loc 1 67 12
+ 311 026c 3C301BE5 		ldr	r3, [fp, #-60]
+ 312 0270 0331A0E1 		lsl	r3, r3, #2
+ 313 0274 04204BE2 		sub	r2, fp, #4
+ 314 0278 033082E0 		add	r3, r2, r3
+ 315 027c 281013E5 		ldr	r1, [r3, #-40]
+ 316              		.loc 1 67 23
+ 317 0280 3C201BE5 		ldr	r2, [fp, #-60]
+ 318 0284 0230A0E1 		mov	r3, r2
+ 319 0288 8331A0E1 		lsl	r3, r3, #3
+ 320 028c 023083E0 		add	r3, r3, r2
+ 321 0290 0331A0E1 		lsl	r3, r3, #2
+ 322 0294 0320A0E1 		mov	r2, r3
+ 323 0298 50301BE5 		ldr	r3, [fp, #-80]
+ 324 029c 023083E0 		add	r3, r3, r2
+ 325              		.loc 1 67 26
+ 326 02a0 40201BE5 		ldr	r2, [fp, #-64]
+ 327 02a4 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 328              		.loc 1 67 16
+ 329 02a8 032081E0 		add	r2, r1, r3
+ 330              		.loc 1 67 36
+ 331 02ac 40301BE5 		ldr	r3, [fp, #-64]
+ 332 02b0 0331A0E1 		lsl	r3, r3, #2
+ 333 02b4 04104BE2 		sub	r1, fp, #4
+ 334 02b8 033081E0 		add	r3, r1, r3
+ 335 02bc 283013E5 		ldr	r3, [r3, #-40]
+ 336              		.loc 1 67 5
+ 337 02c0 030052E1 		cmp	r2, r3
+ 338 02c4 140000AA 		bge	.L16
+  68:Dijkstra.c    **** 				dist[v] = dist[u] + graph[u][v];
+ 339              		.loc 1 68 19
+ 340 02c8 3C301BE5 		ldr	r3, [fp, #-60]
+ 341 02cc 0331A0E1 		lsl	r3, r3, #2
+ 342 02d0 04204BE2 		sub	r2, fp, #4
+ 343 02d4 033082E0 		add	r3, r2, r3
+ 344 02d8 281013E5 		ldr	r1, [r3, #-40]
+ 345              		.loc 1 68 30
+ 346 02dc 3C201BE5 		ldr	r2, [fp, #-60]
+ 347 02e0 0230A0E1 		mov	r3, r2
+ 348 02e4 8331A0E1 		lsl	r3, r3, #3
+ 349 02e8 023083E0 		add	r3, r3, r2
+ 350 02ec 0331A0E1 		lsl	r3, r3, #2
+ 351 02f0 0320A0E1 		mov	r2, r3
+ 352 02f4 50301BE5 		ldr	r3, [fp, #-80]
+ 353 02f8 023083E0 		add	r3, r3, r2
+ 354              		.loc 1 68 33
+ 355 02fc 40201BE5 		ldr	r2, [fp, #-64]
+ 356 0300 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 357              		.loc 1 68 23
+ 358 0304 032081E0 		add	r2, r1, r3
+ 359              		.loc 1 68 13
+ 360 0308 40301BE5 		ldr	r3, [fp, #-64]
+ 361 030c 0331A0E1 		lsl	r3, r3, #2
+ 362 0310 04104BE2 		sub	r1, fp, #4
+ 363 0314 033081E0 		add	r3, r1, r3
+ 364 0318 282003E5 		str	r2, [r3, #-40]
+ 365              	.L16:
+  61:Dijkstra.c    **** 
+ 366              		.loc 1 61 27 discriminator 2
+ 367 031c 40301BE5 		ldr	r3, [fp, #-64]
+ 368 0320 013083E2 		add	r3, r3, #1
+ 369 0324 40300BE5 		str	r3, [fp, #-64]
+ 370              	.L15:
+  61:Dijkstra.c    **** 
+ 371              		.loc 1 61 3 discriminator 1
+ 372 0328 40301BE5 		ldr	r3, [fp, #-64]
+ 373 032c 080053E3 		cmp	r3, #8
+ 374 0330 B2FFFFDA 		ble	.L17
+ 375              	.LBE7:
+ 376              	.LBE6:
+  52:Dijkstra.c    **** 		// Pick the minimum distance vertex from the set of vertices not
+ 377              		.loc 1 52 42 discriminator 2
+ 378 0334 44301BE5 		ldr	r3, [fp, #-68]
+ 379 0338 013083E2 		add	r3, r3, #1
+ 380 033c 44300BE5 		str	r3, [fp, #-68]
+ 381              	.L14:
+  52:Dijkstra.c    **** 		// Pick the minimum distance vertex from the set of vertices not
+ 382              		.loc 1 52 2 discriminator 1
+ 383 0340 44301BE5 		ldr	r3, [fp, #-68]
+ 384 0344 070053E3 		cmp	r3, #7
+ 385 0348 9EFFFFDA 		ble	.L18
+ 386              	.LBE5:
+  69:Dijkstra.c    **** 	}
+  70:Dijkstra.c    **** 
+  71:Dijkstra.c    **** 	// print the constructed distance array
+  72:Dijkstra.c    **** 	printSolution(dist, V);
+ 387              		.loc 1 72 2
+ 388 034c 2C304BE2 		sub	r3, fp, #44
+ 389 0350 0910A0E3 		mov	r1, #9
+ 390 0354 0300A0E1 		mov	r0, r3
+ 391 0358 FEFFFFEB 		bl	printSolution
+  73:Dijkstra.c    **** }
+ 392              		.loc 1 73 1
+ 393 035c 0000A0E1 		nop
+ 394 0360 1C309FE5 		ldr	r3, .L20
+ 395 0364 002093E5 		ldr	r2, [r3]
+ 396 0368 08301BE5 		ldr	r3, [fp, #-8]
+ 397 036c 022033E0 		eors	r2, r3, r2
+ 398 0370 0030A0E3 		mov	r3, #0
+ 399 0374 0000000A 		beq	.L19
+ 400 0378 FEFFFFEB 		bl	__stack_chk_fail
+ 401              	.L19:
+ 402 037c 04D04BE2 		sub	sp, fp, #4
+ 403              		.cfi_def_cfa 13, 8
+ 404              		@ sp needed
+ 405 0380 0088BDE8 		pop	{fp, pc}
+ 406              	.L21:
+ 407              		.align	2
+ 408              	.L20:
+ 409 0384 28000000 		.word	.LC3
+ 410              		.cfi_endproc
+ 411              	.LFE8:
+ 413              		.section	.rodata
+ 414              		.align	2
+ 415              	.LC0:
+ 416 002c 00000000 		.word	0
+ 417 0030 04000000 		.word	4
+ 418 0034 00000000 		.word	0
+ 419 0038 00000000 		.word	0
+ 420 003c 00000000 		.word	0
+ 421 0040 00000000 		.word	0
+ 422 0044 00000000 		.word	0
+ 423 0048 08000000 		.word	8
+ 424 004c 00000000 		.word	0
+ 425 0050 04000000 		.word	4
+ 426 0054 00000000 		.word	0
+ 427 0058 08000000 		.word	8
+ 428 005c 00000000 		.word	0
+ 429 0060 00000000 		.word	0
+ 430 0064 00000000 		.word	0
+ 431 0068 00000000 		.word	0
+ 432 006c 0B000000 		.word	11
+ 433 0070 00000000 		.word	0
+ 434 0074 00000000 		.word	0
+ 435 0078 08000000 		.word	8
+ 436 007c 00000000 		.word	0
+ 437 0080 07000000 		.word	7
+ 438 0084 00000000 		.word	0
+ 439 0088 04000000 		.word	4
+ 440 008c 00000000 		.word	0
+ 441 0090 00000000 		.word	0
+ 442 0094 02000000 		.word	2
+ 443 0098 00000000 		.word	0
+ 444 009c 00000000 		.word	0
+ 445 00a0 07000000 		.word	7
+ 446 00a4 00000000 		.word	0
+ 447 00a8 09000000 		.word	9
+ 448 00ac 0E000000 		.word	14
+ 449 00b0 00000000 		.word	0
+ 450 00b4 00000000 		.word	0
+ 451 00b8 00000000 		.word	0
+ 452 00bc 00000000 		.word	0
+ 453 00c0 00000000 		.word	0
+ 454 00c4 00000000 		.word	0
+ 455 00c8 09000000 		.word	9
+ 456 00cc 00000000 		.word	0
+ 457 00d0 0A000000 		.word	10
+ 458 00d4 00000000 		.word	0
+ 459 00d8 00000000 		.word	0
+ 460 00dc 00000000 		.word	0
+ 461 00e0 00000000 		.word	0
+ 462 00e4 00000000 		.word	0
+ 463 00e8 04000000 		.word	4
+ 464 00ec 0E000000 		.word	14
+ 465 00f0 0A000000 		.word	10
+ 466 00f4 00000000 		.word	0
+ 467 00f8 02000000 		.word	2
+ 468 00fc 00000000 		.word	0
+ 469 0100 00000000 		.word	0
+ 470 0104 00000000 		.word	0
+ 471 0108 00000000 		.word	0
+ 472 010c 00000000 		.word	0
+ 473 0110 00000000 		.word	0
+ 474 0114 00000000 		.word	0
+ 475 0118 02000000 		.word	2
+ 476 011c 00000000 		.word	0
+ 477 0120 01000000 		.word	1
+ 478 0124 06000000 		.word	6
+ 479 0128 08000000 		.word	8
+ 480 012c 0B000000 		.word	11
+ 481 0130 00000000 		.word	0
+ 482 0134 00000000 		.word	0
+ 483 0138 00000000 		.word	0
+ 484 013c 00000000 		.word	0
+ 485 0140 01000000 		.word	1
+ 486 0144 00000000 		.word	0
+ 487 0148 07000000 		.word	7
+ 488 014c 00000000 		.word	0
+ 489 0150 00000000 		.word	0
+ 490 0154 02000000 		.word	2
+ 491 0158 00000000 		.word	0
+ 492 015c 00000000 		.word	0
+ 493 0160 00000000 		.word	0
+ 494 0164 06000000 		.word	6
+ 495 0168 07000000 		.word	7
+ 496 016c 00000000 		.word	0
+ 497              		.align	2
+ 498              	.LC4:
+ 499 0170 00000000 		.word	__stack_chk_guard
+ 500              		.text
+ 501              		.align	2
+ 502              		.global	main
+ 503              		.syntax unified
+ 504              		.arm
+ 505              		.fpu softvfp
+ 507              	main:
+ 508              	.LFB9:
+  74:Dijkstra.c    **** 
+  75:Dijkstra.c    **** // driver program to test above function
+  76:Dijkstra.c    **** int main()
+  77:Dijkstra.c    **** {
+ 509              		.loc 1 77 1
+ 510              		.cfi_startproc
+ 511              		@ args = 0, pretend = 0, frame = 328
+ 512              		@ frame_needed = 1, uses_anonymous_args = 0
+ 513 0388 00482DE9 		push	{fp, lr}
+ 514              		.cfi_def_cfa_offset 8
+ 515              		.cfi_offset 11, -8
+ 516              		.cfi_offset 14, -4
+ 517 038c 04B08DE2 		add	fp, sp, #4
+ 518              		.cfi_def_cfa 11, 4
+ 519 0390 52DF4DE2 		sub	sp, sp, #328
+ 520              		.loc 1 77 1
+ 521 0394 5C309FE5 		ldr	r3, .L25
+ 522 0398 003093E5 		ldr	r3, [r3]
+ 523 039c 08300BE5 		str	r3, [fp, #-8]
+ 524 03a0 0030A0E3 		mov	r3,#0
+  78:Dijkstra.c    **** 	/* Let us create the example graph discussed above */
+  79:Dijkstra.c    **** 	int graph[V][V] = { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+ 525              		.loc 1 79 6
+ 526 03a4 50209FE5 		ldr	r2, .L25+4
+ 527 03a8 533F4BE2 		sub	r3, fp, #332
+ 528 03ac 0210A0E1 		mov	r1, r2
+ 529 03b0 512FA0E3 		mov	r2, #324
+ 530 03b4 0300A0E1 		mov	r0, r3
+ 531 03b8 FEFFFFEB 		bl	memcpy
+  80:Dijkstra.c    **** 						{ 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+  81:Dijkstra.c    **** 						{ 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+  82:Dijkstra.c    **** 						{ 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+  83:Dijkstra.c    **** 						{ 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+  84:Dijkstra.c    **** 						{ 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+  85:Dijkstra.c    **** 						{ 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+  86:Dijkstra.c    **** 						{ 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+  87:Dijkstra.c    **** 						{ 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+  88:Dijkstra.c    **** 
+  89:Dijkstra.c    **** 	dijkstra(graph, 0);
+ 532              		.loc 1 89 2
+ 533 03bc 533F4BE2 		sub	r3, fp, #332
+ 534 03c0 0010A0E3 		mov	r1, #0
+ 535 03c4 0300A0E1 		mov	r0, r3
+ 536 03c8 FEFFFFEB 		bl	dijkstra
+  90:Dijkstra.c    **** 
+  91:Dijkstra.c    **** 	return 0;
+ 537              		.loc 1 91 9
+ 538 03cc 0030A0E3 		mov	r3, #0
+  92:Dijkstra.c    **** }
+ 539              		.loc 1 92 1
+ 540 03d0 20209FE5 		ldr	r2, .L25
+ 541 03d4 001092E5 		ldr	r1, [r2]
+ 542 03d8 08201BE5 		ldr	r2, [fp, #-8]
+ 543 03dc 011032E0 		eors	r1, r2, r1
+ 544 03e0 0020A0E3 		mov	r2, #0
+ 545 03e4 0000000A 		beq	.L24
+ 546 03e8 FEFFFFEB 		bl	__stack_chk_fail
+ 547              	.L24:
+ 548 03ec 0300A0E1 		mov	r0, r3
+ 549 03f0 04D04BE2 		sub	sp, fp, #4
+ 550              		.cfi_def_cfa 13, 8
+ 551              		@ sp needed
+ 552 03f4 0088BDE8 		pop	{fp, pc}
+ 553              	.L26:
+ 554              		.align	2
+ 555              	.L25:
+ 556 03f8 70010000 		.word	.LC4
+ 557 03fc 2C000000 		.word	.LC0
+ 558              		.cfi_endproc
+ 559              	.LFE9:
+ 561              	.Letext0:
+ 562              		.file 2 "/usr/lib/gcc-cross/arm-linux-gnueabi/9/include/stddef.h"
+ 563              		.file 3 "/usr/arm-linux-gnueabi/include/bits/types.h"
+ 564              		.file 4 "/usr/arm-linux-gnueabi/include/bits/types/struct_FILE.h"
+ 565              		.file 5 "/usr/arm-linux-gnueabi/include/bits/types/FILE.h"
+ 566              		.file 6 "/usr/arm-linux-gnueabi/include/stdio.h"
+ 567              		.file 7 "/usr/arm-linux-gnueabi/include/bits/sys_errlist.h"

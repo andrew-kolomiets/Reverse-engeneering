@@ -1,0 +1,166 @@
+   1              		.file	"hanoi.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.section	.rodata
+   5              	.LC0:
+   6 0000 4D6F7665 		.string	"Move disk 1 from %c to %c \n"
+   6      20646973 
+   6      6B203120 
+   6      66726F6D 
+   6      20256320 
+   7              	.LC1:
+   8 001c 4D6F7665 		.string	"Move disk %d from %c to %c \n"
+   8      20646973 
+   8      6B202564 
+   8      2066726F 
+   8      6D202563 
+   9              		.text
+  10              		.globl	hanoi
+  12              	hanoi:
+  13              	.LFB0:
+  14              		.file 1 "hanoi.c"
+   1:hanoi.c       **** 	
+   2:hanoi.c       **** # include <stdio.h>
+   3:hanoi.c       **** 
+   4:hanoi.c       **** void hanoi(int n,char from,char to,char aux)
+   5:hanoi.c       **** {
+  15              		.loc 1 5 1
+  16              		.cfi_startproc
+  17 0000 F30F1EFA 		endbr64
+  18 0004 55       		pushq	%rbp
+  19              		.cfi_def_cfa_offset 16
+  20              		.cfi_offset 6, -16
+  21 0005 4889E5   		movq	%rsp, %rbp
+  22              		.cfi_def_cfa_register 6
+  23 0008 4883EC10 		subq	$16, %rsp
+  24 000c 897DFC   		movl	%edi, -4(%rbp)
+  25 000f 89C8     		movl	%ecx, %eax
+  26 0011 89F1     		movl	%esi, %ecx
+  27 0013 884DF8   		movb	%cl, -8(%rbp)
+  28 0016 8855F4   		movb	%dl, -12(%rbp)
+  29 0019 8845F0   		movb	%al, -16(%rbp)
+   6:hanoi.c       **** 	if (n==1)
+  30              		.loc 1 6 5
+  31 001c 837DFC01 		cmpl	$1, -4(%rbp)
+  32 0020 751D     		jne	.L2
+   7:hanoi.c       **** 	{
+   8:hanoi.c       **** 		printf("Move disk 1 from %c to %c \n" ,from,to);
+  33              		.loc 1 8 3
+  34 0022 0FBE55F4 		movsbl	-12(%rbp), %edx
+  35 0026 0FBE45F8 		movsbl	-8(%rbp), %eax
+  36 002a 89C6     		movl	%eax, %esi
+  37 002c 488D3D00 		leaq	.LC0(%rip), %rdi
+  37      000000
+  38 0033 B8000000 		movl	$0, %eax
+  38      00
+  39 0038 E8000000 		call	printf@PLT
+  39      00
+   9:hanoi.c       **** 	}
+  10:hanoi.c       **** 	else 
+  11:hanoi.c       **** 	{
+  12:hanoi.c       **** 		hanoi(n-1,from,aux,to);
+  13:hanoi.c       **** 		printf ("Move disk %d from %c to %c \n",n,from,to);
+  14:hanoi.c       **** 		hanoi(n-1,aux,to,from);
+  15:hanoi.c       **** 	}
+  16:hanoi.c       **** }
+  40              		.loc 1 16 1
+  41 003d EB50     		jmp	.L4
+  42              	.L2:
+  12:hanoi.c       **** 		printf ("Move disk %d from %c to %c \n",n,from,to);
+  43              		.loc 1 12 3
+  44 003f 0FBE4DF4 		movsbl	-12(%rbp), %ecx
+  45 0043 0FBE55F0 		movsbl	-16(%rbp), %edx
+  46 0047 0FBE45F8 		movsbl	-8(%rbp), %eax
+  47 004b 8B75FC   		movl	-4(%rbp), %esi
+  48 004e 8D7EFF   		leal	-1(%rsi), %edi
+  49 0051 89C6     		movl	%eax, %esi
+  50 0053 E8000000 		call	hanoi
+  50      00
+  13:hanoi.c       **** 		hanoi(n-1,aux,to,from);
+  51              		.loc 1 13 3
+  52 0058 0FBE4DF4 		movsbl	-12(%rbp), %ecx
+  53 005c 0FBE55F8 		movsbl	-8(%rbp), %edx
+  54 0060 8B45FC   		movl	-4(%rbp), %eax
+  55 0063 89C6     		movl	%eax, %esi
+  56 0065 488D3D00 		leaq	.LC1(%rip), %rdi
+  56      000000
+  57 006c B8000000 		movl	$0, %eax
+  57      00
+  58 0071 E8000000 		call	printf@PLT
+  58      00
+  14:hanoi.c       **** 	}
+  59              		.loc 1 14 3
+  60 0076 0FBE4DF8 		movsbl	-8(%rbp), %ecx
+  61 007a 0FBE55F4 		movsbl	-12(%rbp), %edx
+  62 007e 0FBE45F0 		movsbl	-16(%rbp), %eax
+  63 0082 8B75FC   		movl	-4(%rbp), %esi
+  64 0085 8D7EFF   		leal	-1(%rsi), %edi
+  65 0088 89C6     		movl	%eax, %esi
+  66 008a E8000000 		call	hanoi
+  66      00
+  67              	.L4:
+  68              		.loc 1 16 1
+  69 008f 90       		nop
+  70 0090 C9       		leave
+  71              		.cfi_def_cfa 7, 8
+  72 0091 C3       		ret
+  73              		.cfi_endproc
+  74              	.LFE0:
+  76              		.globl	main
+  78              	main:
+  79              	.LFB1:
+  17:hanoi.c       **** 
+  18:hanoi.c       **** int main () 
+  19:hanoi.c       **** {
+  80              		.loc 1 19 1
+  81              		.cfi_startproc
+  82 0092 F30F1EFA 		endbr64
+  83 0096 55       		pushq	%rbp
+  84              		.cfi_def_cfa_offset 16
+  85              		.cfi_offset 6, -16
+  86 0097 4889E5   		movq	%rsp, %rbp
+  87              		.cfi_def_cfa_register 6
+  20:hanoi.c       ****     hanoi(3,'A','C','B');
+  88              		.loc 1 20 5
+  89 009a B9420000 		movl	$66, %ecx
+  89      00
+  90 009f BA430000 		movl	$67, %edx
+  90      00
+  91 00a4 BE410000 		movl	$65, %esi
+  91      00
+  92 00a9 BF030000 		movl	$3, %edi
+  92      00
+  93 00ae E8000000 		call	hanoi
+  93      00
+  94 00b3 B8000000 		movl	$0, %eax
+  94      00
+  21:hanoi.c       **** }
+  95              		.loc 1 21 1
+  96 00b8 5D       		popq	%rbp
+  97              		.cfi_def_cfa 7, 8
+  98 00b9 C3       		ret
+  99              		.cfi_endproc
+ 100              	.LFE1:
+ 102              	.Letext0:
+ 103              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h"
+ 104              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 105              		.file 4 "/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h"
+ 106              		.file 5 "/usr/include/x86_64-linux-gnu/bits/types/FILE.h"
+ 107              		.file 6 "/usr/include/stdio.h"
+ 108              		.file 7 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"
+ 938              		.section	.note.gnu.property,"a"
+ 939              		.align 8
+ 940 0000 04000000 		.long	 1f - 0f
+ 941 0004 10000000 		.long	 4f - 1f
+ 942 0008 05000000 		.long	 5
+ 943              	0:
+ 944 000c 474E5500 		.string	 "GNU"
+ 945              	1:
+ 946              		.align 8
+ 947 0010 020000C0 		.long	 0xc0000002
+ 948 0014 04000000 		.long	 3f - 2f
+ 949              	2:
+ 950 0018 03000000 		.long	 0x3
+ 951              	3:
+ 952 001c 00000000 		.align 8
+ 953              	4:

@@ -1,0 +1,129 @@
+
+fread.lo:     file format elf64-x86-64
+
+
+Disassembly of section .text.fread:
+
+0000000000000000 <fread>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	41 57                	push   %r15
+   6:	b8 00 00 00 00       	mov    $0x0,%eax
+   b:	41 56                	push   %r14
+   d:	49 89 ce             	mov    %rcx,%r14
+  10:	41 55                	push   %r13
+  12:	41 54                	push   %r12
+  14:	49 89 d4             	mov    %rdx,%r12
+  17:	55                   	push   %rbp
+  18:	48 89 fd             	mov    %rdi,%rbp
+  1b:	53                   	push   %rbx
+  1c:	48 89 f3             	mov    %rsi,%rbx
+  1f:	48 0f af da          	imul   %rdx,%rbx
+  23:	48 83 ec 18          	sub    $0x18,%rsp
+  27:	48 85 f6             	test   %rsi,%rsi
+  2a:	4c 0f 44 e0          	cmove  %rax,%r12
+  2e:	8b 81 8c 00 00 00    	mov    0x8c(%rcx),%eax
+  34:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+  39:	45 31 ff             	xor    %r15d,%r15d
+  3c:	85 c0                	test   %eax,%eax
+  3e:	78 0b                	js     4b <fread+0x4b>
+  40:	48 89 cf             	mov    %rcx,%rdi
+  43:	e8 00 00 00 00       	callq  48 <fread+0x48>
+  48:	41 89 c7             	mov    %eax,%r15d
+  4b:	41 8b 96 88 00 00 00 	mov    0x88(%r14),%edx
+  52:	49 8b 76 08          	mov    0x8(%r14),%rsi
+  56:	49 89 dd             	mov    %rbx,%r13
+  59:	8d 42 ff             	lea    -0x1(%rdx),%eax
+  5c:	09 d0                	or     %edx,%eax
+  5e:	41 89 86 88 00 00 00 	mov    %eax,0x88(%r14)
+  65:	49 8b 46 10          	mov    0x10(%r14),%rax
+  69:	48 39 c6             	cmp    %rax,%rsi
+  6c:	74 4e                	je     bc <fread+0xbc>
+  6e:	48 29 f0             	sub    %rsi,%rax
+  71:	48 89 ef             	mov    %rbp,%rdi
+  74:	48 39 d8             	cmp    %rbx,%rax
+  77:	49 89 c5             	mov    %rax,%r13
+  7a:	4c 0f 47 eb          	cmova  %rbx,%r13
+  7e:	4c 89 ea             	mov    %r13,%rdx
+  81:	4c 01 ed             	add    %r13,%rbp
+  84:	e8 00 00 00 00       	callq  89 <fread+0x89>
+  89:	48 89 d8             	mov    %rbx,%rax
+  8c:	4d 01 6e 08          	add    %r13,0x8(%r14)
+  90:	4c 29 e8             	sub    %r13,%rax
+  93:	49 89 c5             	mov    %rax,%r13
+  96:	eb 24                	jmp    bc <fread+0xbc>
+  98:	4c 89 f7             	mov    %r14,%rdi
+  9b:	e8 00 00 00 00       	callq  a0 <fread+0xa0>
+  a0:	85 c0                	test   %eax,%eax
+  a2:	75 1f                	jne    c3 <fread+0xc3>
+  a4:	4c 89 ea             	mov    %r13,%rdx
+  a7:	48 89 ee             	mov    %rbp,%rsi
+  aa:	4c 89 f7             	mov    %r14,%rdi
+  ad:	41 ff 56 40          	callq  *0x40(%r14)
+  b1:	48 85 c0             	test   %rax,%rax
+  b4:	74 0d                	je     c3 <fread+0xc3>
+  b6:	49 29 c5             	sub    %rax,%r13
+  b9:	48 01 c5             	add    %rax,%rbp
+  bc:	4d 85 ed             	test   %r13,%r13
+  bf:	75 d7                	jne    98 <fread+0x98>
+  c1:	eb 1f                	jmp    e2 <fread+0xe2>
+  c3:	45 85 ff             	test   %r15d,%r15d
+  c6:	74 08                	je     d0 <fread+0xd0>
+  c8:	4c 89 f7             	mov    %r14,%rdi
+  cb:	e8 00 00 00 00       	callq  d0 <fread+0xd0>
+  d0:	48 89 d8             	mov    %rbx,%rax
+  d3:	31 d2                	xor    %edx,%edx
+  d5:	4c 29 e8             	sub    %r13,%rax
+  d8:	48 f7 74 24 08       	divq   0x8(%rsp)
+  dd:	49 89 c4             	mov    %rax,%r12
+  e0:	eb 0d                	jmp    ef <fread+0xef>
+  e2:	45 85 ff             	test   %r15d,%r15d
+  e5:	74 08                	je     ef <fread+0xef>
+  e7:	4c 89 f7             	mov    %r14,%rdi
+  ea:	e8 00 00 00 00       	callq  ef <fread+0xef>
+  ef:	48 83 c4 18          	add    $0x18,%rsp
+  f3:	4c 89 e0             	mov    %r12,%rax
+  f6:	5b                   	pop    %rbx
+  f7:	5d                   	pop    %rbp
+  f8:	41 5c                	pop    %r12
+  fa:	41 5d                	pop    %r13
+  fc:	41 5e                	pop    %r14
+  fe:	41 5f                	pop    %r15
+ 100:	c3                   	retq   
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <fread+0x79>
+   b:	74 75                	je     82 <fread+0x82>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  12:	30 2d 31 37 75 62    	xor    %ch,0x62753731(%rip)        # 62753749 <fread+0x62753749>
+  18:	75 6e                	jne    88 <fread+0x88>
+  1a:	74 75                	je     91 <fread+0x91>
+  1c:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1f:	30 2e                	xor    %ch,(%rsi)
+  21:	30 34 29             	xor    %dh,(%rcx,%rbp,1)
+  24:	20 39                	and    %bh,(%rcx)
+  26:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  29:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...

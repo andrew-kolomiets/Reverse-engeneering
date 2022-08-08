@@ -1,0 +1,99 @@
+
+fclose.lo:     file format elf64-x86-64
+
+
+Disassembly of section .text.dummy:
+
+0000000000000000 <__unlist_locked_file>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	c3                   	retq   
+
+Disassembly of section .text.fclose:
+
+0000000000000000 <fclose>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	41 54                	push   %r12
+   6:	55                   	push   %rbp
+   7:	48 89 fd             	mov    %rdi,%rbp
+   a:	53                   	push   %rbx
+   b:	8b 87 8c 00 00 00    	mov    0x8c(%rdi),%eax
+  11:	31 db                	xor    %ebx,%ebx
+  13:	85 c0                	test   %eax,%eax
+  15:	78 07                	js     1e <fclose+0x1e>
+  17:	e8 00 00 00 00       	callq  1c <fclose+0x1c>
+  1c:	89 c3                	mov    %eax,%ebx
+  1e:	48 89 ef             	mov    %rbp,%rdi
+  21:	e8 00 00 00 00       	callq  26 <fclose+0x26>
+  26:	48 89 ef             	mov    %rbp,%rdi
+  29:	41 89 c4             	mov    %eax,%r12d
+  2c:	ff 55 18             	callq  *0x18(%rbp)
+  2f:	41 09 c4             	or     %eax,%r12d
+  32:	85 db                	test   %ebx,%ebx
+  34:	74 08                	je     3e <fclose+0x3e>
+  36:	48 89 ef             	mov    %rbp,%rdi
+  39:	e8 00 00 00 00       	callq  3e <fclose+0x3e>
+  3e:	f6 45 00 01          	testb  $0x1,0x0(%rbp)
+  42:	75 4c                	jne    90 <fclose+0x90>
+  44:	48 89 ef             	mov    %rbp,%rdi
+  47:	e8 00 00 00 00       	callq  4c <fclose+0x4c>
+  4c:	e8 00 00 00 00       	callq  51 <fclose+0x51>
+  51:	48 8b 4d 68          	mov    0x68(%rbp),%rcx
+  55:	48 85 c9             	test   %rcx,%rcx
+  58:	74 08                	je     62 <fclose+0x62>
+  5a:	48 8b 55 70          	mov    0x70(%rbp),%rdx
+  5e:	48 89 51 70          	mov    %rdx,0x70(%rcx)
+  62:	48 8b 55 70          	mov    0x70(%rbp),%rdx
+  66:	48 85 d2             	test   %rdx,%rdx
+  69:	74 04                	je     6f <fclose+0x6f>
+  6b:	48 89 4a 68          	mov    %rcx,0x68(%rdx)
+  6f:	48 39 28             	cmp    %rbp,(%rax)
+  72:	75 03                	jne    77 <fclose+0x77>
+  74:	48 89 10             	mov    %rdx,(%rax)
+  77:	e8 00 00 00 00       	callq  7c <fclose+0x7c>
+  7c:	48 8b bd a8 00 00 00 	mov    0xa8(%rbp),%rdi
+  83:	e8 00 00 00 00       	callq  88 <fclose+0x88>
+  88:	48 89 ef             	mov    %rbp,%rdi
+  8b:	e8 00 00 00 00       	callq  90 <fclose+0x90>
+  90:	44 89 e0             	mov    %r12d,%eax
+  93:	5b                   	pop    %rbx
+  94:	5d                   	pop    %rbp
+  95:	41 5c                	pop    %r12
+  97:	c3                   	retq   
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <fclose+0x79>
+   b:	74 75                	je     82 <fclose+0x82>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  12:	30 2d 31 37 75 62    	xor    %ch,0x62753731(%rip)        # 62753749 <fclose+0x62753749>
+  18:	75 6e                	jne    88 <fclose+0x88>
+  1a:	74 75                	je     91 <fclose+0x91>
+  1c:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1f:	30 2e                	xor    %ch,(%rsi)
+  21:	30 34 29             	xor    %dh,(%rcx,%rbp,1)
+  24:	20 39                	and    %bh,(%rcx)
+  26:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  29:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...

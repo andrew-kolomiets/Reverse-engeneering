@@ -1,0 +1,193 @@
+
+system.lo:     file format elf64-x86-64
+
+
+Disassembly of section .rodata.system.str1.1:
+
+0000000000000000 <.LC0>:
+   0:	73 68                	jae    6a <.LC2+0x64>
+	...
+
+0000000000000003 <.LC1>:
+   3:	2d 63 00         	sub    $0x622f0063,%eax
+
+0000000000000006 <.LC2>:
+   6:	2f                   	(bad)  
+   7:	62                   	(bad)  
+   8:	69                   	.byte 0x69
+   9:	6e                   	outsb  %ds:(%rsi),(%dx)
+   a:	2f                   	(bad)  
+   b:	73 68                	jae    75 <.LC2+0x6f>
+	...
+
+Disassembly of section .text.system:
+
+0000000000000000 <system>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	41 57                	push   %r15
+   6:	31 c0                	xor    %eax,%eax
+   8:	b9 24 00 00 00       	mov    $0x24,%ecx
+   d:	41 56                	push   %r14
+   f:	41 55                	push   %r13
+  11:	41 54                	push   %r12
+  13:	55                   	push   %rbp
+  14:	53                   	push   %rbx
+  15:	48 89 fb             	mov    %rdi,%rbx
+  18:	48 81 ec 48 04 00 00 	sub    $0x448,%rsp
+  1f:	48 8d bc 24 30 01 00 	lea    0x130(%rsp),%rdi
+  26:	00 
+  27:	c7 44 24 04 ff ff ff 	movl   $0xffffffff,0x4(%rsp)
+  2e:	ff 
+  2f:	f3 ab                	rep stos %eax,%es:(%rdi)
+  31:	48 c7 84 24 28 01 00 	movq   $0x1,0x128(%rsp)
+  38:	00 01 00 00 00 
+  3d:	e8 00 00 00 00       	callq  42 <system+0x42>
+  42:	b8 01 00 00 00       	mov    $0x1,%eax
+  47:	48 85 db             	test   %rbx,%rbx
+  4a:	0f 84 85 01 00 00    	je     1d5 <system+0x1d5>
+  50:	4c 8d a4 24 28 01 00 	lea    0x128(%rsp),%r12
+  57:	00 
+  58:	4c 8d b4 24 c0 01 00 	lea    0x1c0(%rsp),%r14
+  5f:	00 
+  60:	bf 02 00 00 00       	mov    $0x2,%edi
+  65:	4c 89 e6             	mov    %r12,%rsi
+  68:	4c 89 f2             	mov    %r14,%rdx
+  6b:	4c 8d ac 24 58 02 00 	lea    0x258(%rsp),%r13
+  72:	00 
+  73:	e8 00 00 00 00       	callq  78 <system+0x78>
+  78:	4c 89 ea             	mov    %r13,%rdx
+  7b:	4c 89 e6             	mov    %r12,%rsi
+  7e:	48 8d ac 24 30 01 00 	lea    0x130(%rsp),%rbp
+  85:	00 
+  86:	bf 03 00 00 00       	mov    $0x3,%edi
+  8b:	4c 8d 64 24 28       	lea    0x28(%rsp),%r12
+  90:	4c 8d bc 24 a8 00 00 	lea    0xa8(%rsp),%r15
+  97:	00 
+  98:	e8 00 00 00 00       	callq  9d <system+0x9d>
+  9d:	be 11 00 00 00       	mov    $0x11,%esi
+  a2:	48 89 ef             	mov    %rbp,%rdi
+  a5:	e8 00 00 00 00       	callq  aa <system+0xaa>
+  aa:	31 ff                	xor    %edi,%edi
+  ac:	4c 89 e2             	mov    %r12,%rdx
+  af:	48 89 ee             	mov    %rbp,%rsi
+  b2:	e8 00 00 00 00       	callq  b7 <system+0xb7>
+  b7:	4c 89 ff             	mov    %r15,%rdi
+  ba:	e8 00 00 00 00       	callq  bf <system+0xbf>
+  bf:	48 83 bc 24 c0 01 00 	cmpq   $0x1,0x1c0(%rsp)
+  c6:	00 01 
+  c8:	74 0d                	je     d7 <system+0xd7>
+  ca:	be 02 00 00 00       	mov    $0x2,%esi
+  cf:	4c 89 ff             	mov    %r15,%rdi
+  d2:	e8 00 00 00 00       	callq  d7 <system+0xd7>
+  d7:	48 83 bc 24 58 02 00 	cmpq   $0x1,0x258(%rsp)
+  de:	00 01 
+  e0:	74 0d                	je     ef <system+0xef>
+  e2:	be 03 00 00 00       	mov    $0x3,%esi
+  e7:	4c 89 ff             	mov    %r15,%rdi
+  ea:	e8 00 00 00 00       	callq  ef <system+0xef>
+  ef:	48 8d ac 24 f0 02 00 	lea    0x2f0(%rsp),%rbp
+  f6:	00 
+  f7:	48 89 ef             	mov    %rbp,%rdi
+  fa:	e8 00 00 00 00       	callq  ff <system+0xff>
+  ff:	4c 89 e6             	mov    %r12,%rsi
+ 102:	48 89 ef             	mov    %rbp,%rdi
+ 105:	e8 00 00 00 00       	callq  10a <system+0x10a>
+ 10a:	4c 89 fe             	mov    %r15,%rsi
+ 10d:	48 89 ef             	mov    %rbp,%rdi
+ 110:	e8 00 00 00 00       	callq  115 <system+0x115>
+ 115:	be 0c 00 00 00       	mov    $0xc,%esi
+ 11a:	48 89 ef             	mov    %rbp,%rdi
+ 11d:	e8 00 00 00 00       	callq  122 <system+0x122>
+ 122:	48 89 e7             	mov    %rsp,%rdi
+ 125:	31 d2                	xor    %edx,%edx
+ 127:	4c 8d 44 24 08       	lea    0x8(%rsp),%r8
+ 12c:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 133 <system+0x133>
+ 133:	48 89 e9             	mov    %rbp,%rcx
+ 136:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+ 13b:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 142 <system+0x142>
+ 142:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+ 147:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 14e <system+0x14e>
+ 14e:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+ 153:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 15a <system+0x15a>
+ 15a:	48 c7 44 24 20 00 00 	movq   $0x0,0x20(%rsp)
+ 161:	00 00 
+ 163:	4c 8b 08             	mov    (%rax),%r9
+ 166:	e8 00 00 00 00       	callq  16b <system+0x16b>
+ 16b:	48 89 ef             	mov    %rbp,%rdi
+ 16e:	89 c3                	mov    %eax,%ebx
+ 170:	e8 00 00 00 00       	callq  175 <system+0x175>
+ 175:	85 db                	test   %ebx,%ebx
+ 177:	75 20                	jne    199 <system+0x199>
+ 179:	48 8d 6c 24 04       	lea    0x4(%rsp),%rbp
+ 17e:	8b 3c 24             	mov    (%rsp),%edi
+ 181:	31 d2                	xor    %edx,%edx
+ 183:	48 89 ee             	mov    %rbp,%rsi
+ 186:	e8 00 00 00 00       	callq  18b <system+0x18b>
+ 18b:	85 c0                	test   %eax,%eax
+ 18d:	79 0a                	jns    199 <system+0x199>
+ 18f:	e8 00 00 00 00       	callq  194 <system+0x194>
+ 194:	83 38 04             	cmpl   $0x4,(%rax)
+ 197:	74 e5                	je     17e <system+0x17e>
+ 199:	31 d2                	xor    %edx,%edx
+ 19b:	4c 89 f6             	mov    %r14,%rsi
+ 19e:	bf 02 00 00 00       	mov    $0x2,%edi
+ 1a3:	e8 00 00 00 00       	callq  1a8 <system+0x1a8>
+ 1a8:	31 d2                	xor    %edx,%edx
+ 1aa:	4c 89 ee             	mov    %r13,%rsi
+ 1ad:	bf 03 00 00 00       	mov    $0x3,%edi
+ 1b2:	e8 00 00 00 00       	callq  1b7 <system+0x1b7>
+ 1b7:	31 d2                	xor    %edx,%edx
+ 1b9:	4c 89 e6             	mov    %r12,%rsi
+ 1bc:	bf 02 00 00 00       	mov    $0x2,%edi
+ 1c1:	e8 00 00 00 00       	callq  1c6 <system+0x1c6>
+ 1c6:	85 db                	test   %ebx,%ebx
+ 1c8:	74 07                	je     1d1 <system+0x1d1>
+ 1ca:	e8 00 00 00 00       	callq  1cf <system+0x1cf>
+ 1cf:	89 18                	mov    %ebx,(%rax)
+ 1d1:	8b 44 24 04          	mov    0x4(%rsp),%eax
+ 1d5:	48 81 c4 48 04 00 00 	add    $0x448,%rsp
+ 1dc:	5b                   	pop    %rbx
+ 1dd:	5d                   	pop    %rbp
+ 1de:	41 5c                	pop    %r12
+ 1e0:	41 5d                	pop    %r13
+ 1e2:	41 5e                	pop    %r14
+ 1e4:	41 5f                	pop    %r15
+ 1e6:	c3                   	retq   
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 47 43             	add    %al,0x43(%rdi)
+   3:	43 3a 20             	rex.XB cmp (%r8),%spl
+   6:	28 55 62             	sub    %dl,0x62(%rbp)
+   9:	75 6e                	jne    79 <.LC2+0x73>
+   b:	74 75                	je     82 <.LC2+0x7c>
+   d:	20 39                	and    %bh,(%rcx)
+   f:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  12:	30 2d 31 37 75 62    	xor    %ch,0x62753731(%rip)        # 62753749 <.LC2+0x62753743>
+  18:	75 6e                	jne    88 <.LC2+0x82>
+  1a:	74 75                	je     91 <.LC2+0x8b>
+  1c:	31 7e 32             	xor    %edi,0x32(%rsi)
+  1f:	30 2e                	xor    %ch,(%rsi)
+  21:	30 34 29             	xor    %dh,(%rcx,%rbp,1)
+  24:	20 39                	and    %bh,(%rcx)
+  26:	2e 33 2e             	xor    %cs:(%rsi),%ebp
+  29:	30 00                	xor    %al,(%rax)
+
+Disassembly of section .note.gnu.property:
+
+0000000000000000 <.note.gnu.property>:
+   0:	04 00                	add    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	10 00                	adc    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	05 00 00 00 47       	add    $0x47000000,%eax
+   d:	4e 55                	rex.WRX push %rbp
+   f:	00 02                	add    %al,(%rdx)
+  11:	00 00                	add    %al,(%rax)
+  13:	c0 04 00 00          	rolb   $0x0,(%rax,%rax,1)
+  17:	00 03                	add    %al,(%rbx)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 00                	add    %al,(%rax)
+  1d:	00 00                	add    %al,(%rax)
+	...

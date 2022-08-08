@@ -1,0 +1,170 @@
+
+hanoi.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+;****************************************************************************************
+
+0000000000000000 <hanoi>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp	;пролог функції
+   
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   b:	40 88 75 fb          	mov    %sil,-0x5(%rbp)
+   f:	88 55 fa             	mov    %dl,-0x6(%rbp)
+  12:	88 4d f9             	mov    %cl,-0x7(%rbp)
+  
+  15:	83 7d fc 01          	cmpl   $0x1,-0x4(%rbp)	; n порівнюється з 1
+  19:	0f 85 1e 00 00 00    	jne    3d <hanoi+0x3d>	; якщо не виконується умова нас кидає в 3d
+  							; якщо все пройшло успішно, ми заходимо в блок if, і виконуємо наступні інструкції
+  1f:	0f be 75 fb          	movsbl -0x5(%rbp),%esi
+  23:	0f be 55 fa          	movsbl -0x6(%rbp),%edx
+  27:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  2e:	00 00 00 
+  31:	b0 00                	mov    $0x0,%al		 ; передача параметрів до регістрів
+  33:	e8 00 00 00 00       	callq  38 <hanoi+0x38>		 ;виклик функції
+  
+  38:	e9 5d 00 00 00       	jmpq   9a <hanoi+0x9a>		;якщо все таки умовна перевірка не пройшла ми переходимо в блок else
+  
+  3d:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  40:	83 e8 01             	sub    $0x1,%eax
+  43:	8a 4d fb             	mov    -0x5(%rbp),%cl
+  46:	8a 55 f9             	mov    -0x7(%rbp),%dl
+  49:	89 c7                	mov    %eax,%edi
+  4b:	0f be f1             	movsbl %cl,%esi
+  4e:	0f be d2             	movsbl %dl,%edx
+  51:	0f be 4d fa          	movsbl -0x6(%rbp),%ecx		; передача параметрів до регістрів 
+  55:	e8 00 00 00 00       	callq  5a <hanoi+0x5a>		; виклик функції
+  
+  5a:	8b 75 fc             	mov    -0x4(%rbp),%esi
+  5d:	0f be 55 fb          	movsbl -0x5(%rbp),%edx
+  61:	0f be 4d fa          	movsbl -0x6(%rbp),%ecx
+  65:	48 bf 00 00 00 00 00 	movabs $0x0,%rdi
+  6c:	00 00 00 
+  6f:	b0 00                	mov    $0x0,%al
+  71:	e8 00 00 00 00       	callq  76 <hanoi+0x76>		; передача параметрів до регістрів 
+  
+  76:	8b 4d fc             	mov    -0x4(%rbp),%ecx
+  79:	83 e9 01             	sub    $0x1,%ecx
+  7c:	44 8a 45 f9          	mov    -0x7(%rbp),%r8b
+  80:	44 8a 4d fa          	mov    -0x6(%rbp),%r9b
+  84:	89 cf                	mov    %ecx,%edi
+  86:	41 0f be f0          	movsbl %r8b,%esi
+  8a:	41 0f be d1          	movsbl %r9b,%edx
+  8e:	0f be 4d fb          	movsbl -0x5(%rbp),%ecx
+  92:	89 45 f4             	mov    %eax,-0xc(%rbp)		; передача параметрів до регістрів
+  95:	e8 00 00 00 00       	callq  9a <hanoi+0x9a>		; виклик функції
+  
+  9a:	48 83 c4 10          	add    $0x10,%rsp		; епілог фунції
+  9e:	5d                   	pop    %rbp
+  
+  9f:	c3                   	retq   			; return 
+  
+;****************************************************************************************
+
+;початок реалізції функції main() 
+
+00000000000000a0 <main>:
+  a0:	55                   	push   %rbp
+  a1:	48 89 e5             	mov    %rsp,%rbp	;пролог функції на початку
+  
+  a4:	bf 03 00 00 00       	mov    $0x3,%edi	;процедура запису параметрів в регістри для hanoi(), чотири інструкції mov переміщують символи в ASCII системі кодування до регістрів
+  a9:	be 41 00 00 00       	mov    $0x41,%esi	;порядок їх передачі в регістри визначається ахітектурою та мовою ассемблера, детальніше див. в документацію
+  ae:	ba 43 00 00 00       	mov    $0x43,%edx
+  b3:	b9 42 00 00 00       	mov    $0x42,%ecx
+  b8:	e8 00 00 00 00       	callq  bd <main+0x1d>	;виклик функції hanoi()
+  
+  bd:	31 c0                	xor    %eax,%eax	;епілог функції в кінці, але операція xor тут для вирівнювання регістру по певному діапазону використовується
+  bf:	5d                   	pop    %rbp
+  
+  c0:	c3                   	retq   		;return
+  
+;кінець реалізції функції main() 
+
+;****************************************************************************************
+
+; по аналогії з компіляторами Windows x64, ARM, ARM64 нижче наведені підключені функції, котрі приєднувалися в останньому етапі компіляції
+
+Disassembly of section .rodata.str1.1:
+
+0000000000000000 <.rodata.str1.1>:
+   0:	4d 6f                	rex.WRB outsl %ds:(%rsi),(%dx)
+   2:	76 65                	jbe    69 <hanoi+0x69>
+   4:	20 64 69 73          	and    %ah,0x73(%rcx,%rbp,2)
+   8:	6b 20 31             	imul   $0x31,(%rax),%esp
+   b:	20 66 72             	and    %ah,0x72(%rsi)
+   e:	6f                   	outsl  %ds:(%rsi),(%dx)
+   f:	6d                   	insl   (%dx),%es:(%rdi)
+  10:	20 25 63 20 74 6f    	and    %ah,0x6f742063(%rip)        # 6f742079 <main+0x6f741fd9>
+  16:	20 25 63 20 0a 00    	and    %ah,0xa2063(%rip)        # a207f <main+0xa1fdf>
+  1c:	4d 6f                	rex.WRB outsl %ds:(%rsi),(%dx)
+  1e:	76 65                	jbe    85 <hanoi+0x85>
+  20:	20 64 69 73          	and    %ah,0x73(%rcx,%rbp,2)
+  24:	6b 20 25             	imul   $0x25,(%rax),%esp
+  27:	64 20 66 72          	and    %ah,%fs:0x72(%rsi)
+  2b:	6f                   	outsl  %ds:(%rsi),(%dx)
+  2c:	6d                   	insl   (%dx),%es:(%rdi)
+  2d:	20 25 63 20 74 6f    	and    %ah,0x6f742063(%rip)        # 6f742096 <main+0x6f741ff6>
+  33:	20 25 63 20 0a 00    	and    %ah,0xa2063(%rip)        # a209c <main+0xa1ffc>
+;****************************************************************************************
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	00 63 6c             	add    %ah,0x6c(%rbx)
+   3:	61                   	(bad)  
+   4:	6e                   	outsb  %ds:(%rsi),(%dx)
+   5:	67 20 76 65          	and    %dh,0x65(%esi)
+   9:	72 73                	jb     7e <hanoi+0x7e>
+   b:	69 6f 6e 20 31 30 2e 	imul   $0x2e303120,0x6e(%rdi),%ebp
+  12:	30 2e                	xor    %ch,(%rsi)
+  14:	30 2d 34 75 62 75    	xor    %ch,0x75627534(%rip)        # 7562754e <main+0x756274ae>
+  1a:	6e                   	outsb  %ds:(%rsi),(%dx)
+  1b:	74 75                	je     92 <hanoi+0x92>
+  1d:	31 20                	xor    %esp,(%rax)
+	...
+;****************************************************************************************
+Disassembly of section .eh_frame:
+
+0000000000000000 <.eh_frame>:
+   0:	14 00                	adc    $0x0,%al
+   2:	00 00                	add    %al,(%rax)
+   4:	00 00                	add    %al,(%rax)
+   6:	00 00                	add    %al,(%rax)
+   8:	01 7a 52             	add    %edi,0x52(%rdx)
+   b:	00 01                	add    %al,(%rcx)
+   d:	78 10                	js     1f <.eh_frame+0x1f>
+   f:	01 1b                	add    %ebx,(%rbx)
+  11:	0c 07                	or     $0x7,%al
+  13:	08 90 01 00 00 1c    	or     %dl,0x1c000001(%rax)
+  19:	00 00                	add    %al,(%rax)
+  1b:	00 1c 00             	add    %bl,(%rax,%rax,1)
+  1e:	00 00                	add    %al,(%rax)
+  20:	00 00                	add    %al,(%rax)
+  22:	00 00                	add    %al,(%rax)
+  24:	a0 00 00 00 00 41 0e 	movabs 0x86100e4100000000,%al
+  2b:	10 86 
+  2d:	02 43 0d             	add    0xd(%rbx),%al
+  30:	06                   	(bad)  
+  31:	02 9b 0c 07 08 00    	add    0x8070c(%rbx),%bl
+  37:	00 1c 00             	add    %bl,(%rax,%rax,1)
+  3a:	00 00                	add    %al,(%rax)
+  3c:	3c 00                	cmp    $0x0,%al
+  3e:	00 00                	add    %al,(%rax)
+  40:	00 00                	add    %al,(%rax)
+  42:	00 00                	add    %al,(%rax)
+  44:	21 00                	and    %eax,(%rax)
+  46:	00 00                	add    %al,(%rax)
+  48:	00 41 0e             	add    %al,0xe(%rcx)
+  4b:	10 86 02 43 0d 06    	adc    %al,0x60d4302(%rsi)
+  51:	5c                   	pop    %rsp
+  52:	0c 07                	or     $0x7,%al
+  54:	08 00                	or     %al,(%rax)
+	...
+;****************************************************************************************
+Disassembly of section .llvm_addrsig:
+
+0000000000000000 <.llvm_addrsig>:
+   0:	04 06                	add    $0x6,%al
